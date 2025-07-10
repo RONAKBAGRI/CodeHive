@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="public/logo.png" alt="CodeHive Logo" width="300"/>
+  <img src="public/logo2.png" alt="CodeHive Logo" width="300"/>
   <h2 align="center"><strong>The Future of Online Coding</strong></h2>
 </p>
 
