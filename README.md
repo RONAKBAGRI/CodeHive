@@ -1,36 +1,90 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+<p align="center">
+  <img src="public/logo.png" alt="CodeHive Logo" width="300"/>
+  <h2 align="center"><strong>The Future of Online Coding</strong></h2>
+</p>
 
-## Getting Started
+Welcome to **CodeHive**, an advanced, community-driven online IDE designed for developers and learners to write, run, and share code seamlessly.  
 
-First, run the development server:
+## 🚀 Tech Stack
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- **Next.js 15** — Powerful React framework for building fast, scalable web applications
+- **Convex** — Serverless data storage and real-time backend
+- **Clerk** — User authentication and account management
+- **TypeScript** — Strongly typed language for better code reliability
+- **LemonSqueezy** — Payment gateway for managing Free & Pro plans
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🌟 Key Features
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 💻 Online IDE with Multi-Language Support
+Write and execute code in **10 different languages**, making it easy to experiment and learn across multiple tech stacks.
 
-## Learn More
+### 🎨 Customizable Developer Experience
+Choose from **5 popular VSCode-inspired themes** and adjust font sizes to suit your style.
 
-To learn more about Next.js, take a look at the following resources:
+### ✨ Smart Output Handling
+Get clear, intuitive feedback with **Success & Error states**, helping you debug faster and code smarter.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### 💎 Flexible Pricing
+Start with the **Free plan** and upgrade to the **Pro plan** for premium features, all powered by LemonSqueezy.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### 🤝 Community-Driven Code Sharing
+Share your code snippets publicly, explore what others are building, and contribute to a thriving developer community.
 
-## Deploy on Vercel
+### 🔍 Advanced Search & Filtering
+Quickly find projects, snippets, or profiles using powerful filtering and search capabilities.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### 👤 Personal Profile & Execution History
+Track all your executed code snippets, maintain your personal coding history, and build your developer portfolio.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### 📊 Comprehensive Statistics Dashboard
+Monitor your usage, most-run languages, and code performance metrics through an elegant analytics dashboard.
+
+### ⚙️ Full Customization
+Control your coding experience with adjustable **font sizes** and theme settings.
+
+### 🔗 Webhook Integration
+Integrate your IDE workflows with external services and automate tasks using webhook support.
+
+### 🌟 Professional Deployment Walkthrough
+Detailed, step-by-step deployment guide so you can understand the full deployment process and replicate it yourself.
+
+---
+
+## 💬 Why CodeHive?
+
+CodeHive isn’t just another online IDE. It’s a **complete coding ecosystem** designed to make development collaborative, customizable, and fun. Whether you’re a beginner exploring new languages or an advanced developer sharing professional snippets, CodeHive empowers you to build and learn without limits.
+
+---
+
+## ✅ Getting Started
+
+Stay tuned! The project is currently under active development.  
+✨ A detailed installation and usage guide will be added soon.
+
+---
+
+## 🙌 Contributing
+
+Community contributions are at the heart of CodeHive. Once we open-source, we welcome PRs, ideas, and feature requests to make this platform even better.
+
+---
+
+## 💡 License
+
+This project will be licensed soon. Check back for updates!
+
+---
+
+## 🌐 Links
+
+- 🌟 [Visit Our Website](#) — Coming Soon!
+- 💬 [Join the Community](#) — Discord/Slack invite coming soon
+
+---
+
+### 🚀 Let’s code the future, together!
+
+---
+
