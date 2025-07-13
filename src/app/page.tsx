@@ -1,7 +1,12 @@
-export default function Home() {
+import { SignInButton, SignOutButton } from "@clerk/nextjs"
+
+function page() {
   return (
-    <div className="bg-black text-white text-3xl">
-      Home page
+    <div>
+      <SignInButton/>
+      <SignOutButton/>
     </div>
-  );
+  )
 }
+
+export default page
