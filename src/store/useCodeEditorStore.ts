@@ -1,10 +1,8 @@
-import { CodeEditorState } from "./../types/index";
-import { LANGUAGE_CONFIG } from "@/app/(root)/_constants";
 import { create } from "zustand";
-import { Monaco } from "@monaco-editor/react";
+import * as monaco from "monaco-editor";
+import { LANGUAGE_CONFIG } from "@/app/(root)/_constants";
 
 const getInitialState = () => {
-  // if we're on the server, return default values
   if (typeof window === "undefined") {
     return {
       language: "cpp",
@@ -13,10 +11,9 @@ const getInitialState = () => {
     };
   }
 
-  // if we're on the client, return values from local storage bc localStorage is a browser API.
   const savedLanguage = localStorage.getItem("editor-language") || "cpp";
   const savedTheme = localStorage.getItem("editor-theme") || "vs-dark";
-  const savedFontSize = localStorage.getItem("editor-font-size") || 16;
+  const savedFontSize = localStorage.getItem("editor-font-size") || "16";
 
   return {
     language: savedLanguage,
@@ -24,6 +21,24 @@ const getInitialState = () => {
     fontSize: Number(savedFontSize),
   };
 };
+
+interface CodeEditorState {
+  language: string;
+  theme: string;
+  fontSize: number;
+  editor: monaco.editor.IStandaloneCodeEditor | null;
+  output: string;
+  isRunning: boolean;
+  error: string | null;
+  executionResult: { code: string; output: string; error: string | null } | null;
+
+  getCode: () => string;
+  setEditor: (editor: monaco.editor.IStandaloneCodeEditor) => void;
+  setTheme: (theme: string) => void;
+  setFontSize: (fontSize: number) => void;
+  setLanguage: (language: string) => void;
+  runCode: () => Promise<void>;
+}
 
 export const useCodeEditorStore = create<CodeEditorState>((set, get) => {
   const initialState = getInitialState();
@@ -38,10 +53,9 @@ export const useCodeEditorStore = create<CodeEditorState>((set, get) => {
 
     getCode: () => get().editor?.getValue() || "",
 
-    setEditor: (editor: Monaco) => {
+    setEditor: (editor: monaco.editor.IStandaloneCodeEditor) => {
       const savedCode = localStorage.getItem(`editor-code-${get().language}`);
       if (savedCode) editor.setValue(savedCode);
-
       set({ editor });
     },
 
@@ -56,7 +70,6 @@ export const useCodeEditorStore = create<CodeEditorState>((set, get) => {
     },
 
     setLanguage: (language: string) => {
-      // Save current language code before switching
       const currentCode = get().editor?.getValue();
       if (currentCode) {
         localStorage.setItem(`editor-code-${get().language}`, currentCode);
@@ -98,55 +111,36 @@ export const useCodeEditorStore = create<CodeEditorState>((set, get) => {
 
         const data = await response.json();
 
-        console.log("data back from piston:", data);
-
-        // handle API-level erros
         if (data.message) {
           set({ error: data.message, executionResult: { code, output: "", error: data.message } });
           return;
         }
 
-        // handle compilation errors
         if (data.compile && data.compile.code !== 0) {
-          const error = data.compile.stderr || data.compile.output;
+          const compileError = data.compile.stderr || data.compile.output;
           set({
-            error,
-            executionResult: {
-              code,
-              output: "",
-              error,
-            },
+            error: compileError,
+            executionResult: { code, output: "", error: compileError },
           });
           return;
         }
 
         if (data.run && data.run.code !== 0) {
-          const error = data.run.stderr || data.run.output;
+          const runError = data.run.stderr || data.run.output;
           set({
-            error,
-            executionResult: {
-              code,
-              output: "",
-              error,
-            },
+            error: runError,
+            executionResult: { code, output: "", error: runError },
           });
           return;
         }
 
-        // if we get here, execution was successful
         const output = data.run.output;
-
         set({
           output: output.trim(),
           error: null,
-          executionResult: {
-            code,
-            output: output.trim(),
-            error: null,
-          },
+          executionResult: { code, output: output.trim(), error: null },
         });
-      } catch (error) {
-        console.log("Error running code:", error);
+      } catch {
         set({
           error: "Error running code",
           executionResult: { code, output: "", error: "Error running code" },

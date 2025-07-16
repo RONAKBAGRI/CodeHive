@@ -10,11 +10,20 @@ import { useClerk } from "@clerk/nextjs";
 import { EditorPanelSkeleton } from "./EditorPanelSkeleton";
 import useMounted from "@/hooks/useMounted";
 import ShareSnippetDialog from "./ShareSnippetDialog";
+import * as monaco from "monaco-editor"; // ✅ import to type editor instance
 
 function EditorPanel() {
   const clerk = useClerk();
   const [isShareDialogOpen, setIsShareDialogOpen] = useState(false);
-  const { language, theme, fontSize, editor, setFontSize, setEditor } = useCodeEditorStore();
+
+  const {
+    language,
+    theme,
+    fontSize,
+    editor,
+    setFontSize,
+    setEditor,
+  } = useCodeEditorStore();
 
   const mounted = useMounted();
 
@@ -104,7 +113,7 @@ function EditorPanel() {
           </div>
         </div>
 
-        {/* Editor  */}
+        {/* Editor */}
         <div className="relative group rounded-xl overflow-hidden ring-1 ring-white/[0.05]">
           {clerk.loaded && (
             <Editor
@@ -113,7 +122,9 @@ function EditorPanel() {
               onChange={handleEditorChange}
               theme={theme}
               beforeMount={defineMonacoThemes}
-              onMount={(editor) => setEditor(editor)}
+              onMount={(editorInstance) => {
+                setEditor(editorInstance as monaco.editor.IStandaloneCodeEditor);
+              }}
               options={{
                 minimap: { enabled: false },
                 fontSize,
