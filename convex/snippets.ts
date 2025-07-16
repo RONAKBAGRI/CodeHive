@@ -79,22 +79,29 @@ export const starSnippet = mutation({
     const identity = await ctx.auth.getUserIdentity();
     if (!identity) throw new Error("Not authenticated");
 
-    const existing = await ctx.db
+    // Check if snippet exists
+    const snippet = await ctx.db.get(args.snippetId);
+    if (!snippet) throw new Error("Snippet not found");
+
+    // Check for existing star
+    const existingStar = await ctx.db
       .query("stars")
-      .withIndex("by_user_id_and_snippet_id")
-      .filter(
-        (q) =>
-          q.eq(q.field("userId"), identity.subject) && q.eq(q.field("snippetId"), args.snippetId)
+      .withIndex("by_user_id_and_snippet_id", (q) =>
+        q.eq("userId", identity.subject).eq("snippetId", args.snippetId)
       )
       .first();
 
-    if (existing) {
-      await ctx.db.delete(existing._id);
+    if (existingStar) {
+      // If star exists, remove it
+      await ctx.db.delete(existingStar._id);
+      return { action: "unstarred" };
     } else {
+      // If no star exists, add one
       await ctx.db.insert("stars", {
         userId: identity.subject,
         snippetId: args.snippetId,
       });
+      return { action: "starred" };
     }
   },
 });
@@ -200,10 +207,8 @@ export const getSnippetStarCount = query({
   handler: async (ctx, args) => {
     const stars = await ctx.db
       .query("stars")
-      .withIndex("by_snippet_id")
-      .filter((q) => q.eq(q.field("snippetId"), args.snippetId))
+      .withIndex("by_snippet_id", (q) => q.eq("snippetId", args.snippetId))
       .collect();
-
     return stars.length;
   },
 });
@@ -222,5 +227,37 @@ export const getStarredSnippets = query({
     const snippets = await Promise.all(stars.map((star) => ctx.db.get(star.snippetId)));
 
     return snippets.filter((snippet) => snippet !== null);
+  },
+});
+
+export const getSnippetStarStatus = query({
+  args: {
+    snippetId: v.id("snippets"),
+  },
+  handler: async (ctx, args) => {
+    const identity = await ctx.auth.getUserIdentity();
+    
+    // Get star count (for all users)
+    const starCount = await ctx.db
+      .query("stars")
+      .withIndex("by_snippet_id", (q) => q.eq("snippetId", args.snippetId))
+      .collect()
+      .then(stars => stars.length);
+
+    // Check if current user starred it
+    const hasUserStarred = identity 
+      ? await ctx.db
+          .query("stars")
+          .withIndex("by_user_id_and_snippet_id", (q) =>
+            q.eq("userId", identity.subject).eq("snippetId", args.snippetId)
+          )
+          .first()
+          .then(star => !!star)
+      : false;
+
+    return {
+      starCount,
+      hasUserStarred
+    };
   },
 });
