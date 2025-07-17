@@ -31,15 +31,13 @@ function LanguageSelector({ hasAccess, mobile = false }: { hasAccess: boolean; m
   useEffect(() => {
     if (isOpen && buttonRef.current && mobile) {
       const buttonRect = buttonRef.current.getBoundingClientRect();
-      const dropdownWidth = 180; // Width of mobile dropdown
+      const dropdownWidth = 180;
       const viewportWidth = window.innerWidth;
-      const padding = 16; // Safe padding from edges
+      const padding = 16;
       
       const spaceOnRight = viewportWidth - buttonRect.right - padding;
       const spaceOnLeft = buttonRect.left - padding;
       
-      // If there's not enough space on the right, position it to the left
-      // But also check if there's enough space on the left
       if (spaceOnRight < dropdownWidth && spaceOnLeft >= dropdownWidth) {
         setDropdownPosition('left');
       } else {
@@ -58,13 +56,13 @@ function LanguageSelector({ hasAccess, mobile = false }: { hasAccess: boolean; m
 
   if (mobile) {
     return (
-      <div className="relative" ref={dropdownRef}>
+      <div className="relative isolate" ref={dropdownRef}>
         <motion.button
           ref={buttonRef}
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
           onClick={() => setIsOpen(!isOpen)}
-          className={`relative group p-2 rounded-lg bg-gray-700/50 hover:bg-blue-500/10 border ${currentLanguageObj.id === language ? "border-orange-400/50" : "border-gray-800"} transition-all duration-300`}
+          className="relative p-2 rounded-lg bg-gray-700/50 hover:bg-blue-500/10 border border-gray-800 hover:border-orange-400/50 transition-all duration-300"
         >
           <div className="size-5">
             <Image
@@ -90,19 +88,31 @@ function LanguageSelector({ hasAccess, mobile = false }: { hasAccess: boolean; m
                 left: dropdownPosition === 'right' 
                   ? Math.max(16, (buttonRef.current?.getBoundingClientRect().right || 0) - 180)
                   : Math.max(16, buttonRef.current?.getBoundingClientRect().left || 0),
-                width: Math.min(180, window.innerWidth - 32), // Responsive width
+                width: Math.min(180, window.innerWidth - 32),
                 maxHeight: '280px',
                 overflowY: 'auto',
               }}
             >
               {Object.values(LANGUAGE_CONFIG).map((lang) => {
                 const isLocked = !hasAccess && lang.id !== "cpp";
+                const isSelected = language === lang.id;
+                
                 return (
-                  <motion.button
+                  <button
                     key={lang.id}
                     onClick={() => handleLanguageSelect(lang.id)}
                     disabled={isLocked}
-                    className={`relative w-full flex items-center gap-3 px-3 py-2.5 ${isLocked ? "opacity-50" : "hover:bg-[#262637]"} ${language === lang.id ? "bg-orange-500/10 text-yellow-400" : "text-gray-300"}`}
+                    className={`
+                      relative w-full flex items-center gap-3 px-3 py-2.5 transition-all duration-200
+                      ${isSelected 
+                        ? "bg-orange-500/10 text-yellow-400" 
+                        : "text-gray-300"
+                      }
+                      ${isLocked 
+                        ? "opacity-50 cursor-not-allowed" 
+                        : "hover:bg-[#262637] hover:text-white cursor-pointer"
+                      }
+                    `}
                   >
                     <div className="size-5 flex-shrink-0">
                       <Image
@@ -117,9 +127,9 @@ function LanguageSelector({ hasAccess, mobile = false }: { hasAccess: boolean; m
                     {isLocked ? (
                       <Lock className="w-3 h-3 text-gray-500 flex-shrink-0" />
                     ) : (
-                      language === lang.id && <Sparkles className="w-3 h-3 text-yellow-400 flex-shrink-0" />
+                      isSelected && <Sparkles className="w-3 h-3 text-yellow-400 flex-shrink-0" />
                     )}
-                  </motion.button>
+                  </button>
                 );
               })}
             </motion.div>
@@ -130,27 +140,35 @@ function LanguageSelector({ hasAccess, mobile = false }: { hasAccess: boolean; m
   }
 
   return (
-    <div className="relative" ref={dropdownRef}>
+    <div className="relative isolate" ref={dropdownRef}>
       <motion.button
         whileHover={{ scale: 1.02 }}
         whileTap={{ scale: 0.98 }}
         onClick={() => setIsOpen(!isOpen)}
-        className={`relative group flex items-center gap-2 px-4 py-1.5 rounded-lg text-gray-300 bg-gray-700/50 hover:bg-blue-500/10 border border-gray-800 hover:border-orange-400/50 transition-all duration-300 shadow-lg overflow-hidden ${!hasAccess && language !== "javascript" ? "opacity-50 cursor-not-allowed" : ""}`}
+        className="
+          relative flex items-center gap-2 px-4 py-1.5 rounded-lg text-gray-300 
+          bg-gray-700/50 hover:bg-blue-500/10 border border-gray-800 
+          hover:border-orange-400/50 transition-all duration-300 shadow-lg
+          before:absolute before:inset-0 before:bg-gradient-to-r before:from-orange-400/10 before:to-red-500/10 
+          before:rounded-lg before:opacity-0 hover:before:opacity-100 before:transition-opacity
+        "
       >
-        <div className="absolute inset-0 bg-gradient-to-r from-orange-400/10 to-red-500/10 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity" />
-        <div className="size-6 rounded-md bg-gray-800/50 p-0.5 group-hover:scale-110 transition-transform">
+        <div className="relative size-6 rounded-md bg-gray-800/50 p-0.5 hover:scale-110 transition-transform">
           <Image
             src={currentLanguageObj.logoPath}
             alt="programming language logo"
             width={24}
             height={24}
-            className="w-full h-full object-contain relative z-10"
+            className="w-full h-full object-contain"
           />
         </div>
-        <span className="text-gray-200 min-w-[80px] text-left group-hover:text-white transition-colors">
+        <span className="relative text-gray-200 min-w-[80px] text-left hover:text-white transition-colors">
           {currentLanguageObj.label}
         </span>
-        <ChevronDownIcon className={`size-4 text-gray-400 transition-all duration-300 group-hover:text-gray-300 ${isOpen ? "rotate-180" : ""}`} />
+        <ChevronDownIcon className={`
+          relative size-4 text-gray-400 transition-all duration-300 hover:text-gray-300
+          ${isOpen ? "rotate-180" : ""}
+        `} />
       </motion.button>
 
       <AnimatePresence>
@@ -162,7 +180,7 @@ function LanguageSelector({ hasAccess, mobile = false }: { hasAccess: boolean; m
             transition={{ duration: 0.2 }}
             className="absolute top-full left-0 mt-2 w-full min-w-[240px] bg-[#2e261e]/90 backdrop-blur-xl rounded-xl border border-[#313244] shadow-2xl py-2 z-50"
             style={{
-              maxWidth: 'calc(100vw - 32px)', // Prevent horizontal overflow
+              maxWidth: 'calc(100vw - 32px)',
             }}
           >
             <div className="px-3 pb-2 mb-2 border-b border-gray-800/50">
@@ -171,21 +189,47 @@ function LanguageSelector({ hasAccess, mobile = false }: { hasAccess: boolean; m
             <div className="max-h-[280px] overflow-y-auto overflow-x-hidden hidescroll">
               {Object.values(LANGUAGE_CONFIG).map((lang, index) => {
                 const isLocked = !hasAccess && lang.id !== "cpp";
+                const isSelected = language === lang.id;
+                
                 return (
                   <motion.div
                     key={lang.id}
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ delay: index * 0.1 }}
-                    className="relative group px-2"
+                    className="relative px-2"
                   >
                     <button
-                      className={`relative w-full flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all duration-200 ${language === lang.id ? "bg-orange-500/10 text-yellow-400" : "text-gray-300"} ${isLocked ? "opacity-50" : "hover:bg-[#262637]"}`}
+                      className={`
+                        relative w-full flex items-center gap-3 px-3 py-2.5 rounded-lg 
+                        transition-all duration-200 group
+                        ${isSelected 
+                          ? "bg-orange-500/10 text-yellow-400" 
+                          : "text-gray-300"
+                        }
+                        ${isLocked 
+                          ? "opacity-50 cursor-not-allowed" 
+                          : "hover:bg-[#262637] hover:text-white cursor-pointer"
+                        }
+                        ${!isLocked && !isSelected 
+                          ? "hover:before:opacity-100" 
+                          : ""
+                        }
+                        before:absolute before:inset-0 before:bg-gradient-to-r 
+                        before:from-orange-400/10 before:to-red-500/10 before:rounded-lg 
+                        before:opacity-0 before:transition-opacity
+                      `}
                       onClick={() => handleLanguageSelect(lang.id)}
                       disabled={isLocked}
                     >
-                      <div className="absolute inset-0 bg-gradient-to-r from-orange-400/10 to-red-500/10 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity" />
-                      <div className={`relative size-8 rounded-lg p-1.5 group-hover:scale-110 transition-transform flex-shrink-0 ${language === lang.id ? "bg-orange-500/10" : "bg-gray-800/50"}`}>
+                      <div className={`
+                        relative size-8 rounded-lg p-1.5 transition-all duration-200 flex-shrink-0
+                        ${isSelected 
+                          ? "bg-orange-500/10" 
+                          : "bg-gray-800/50"
+                        }
+                        ${!isLocked ? "group-hover:scale-110" : ""}
+                      `}>
                         <Image
                           width={24}
                           height={24}
@@ -194,15 +238,15 @@ function LanguageSelector({ hasAccess, mobile = false }: { hasAccess: boolean; m
                           className="w-full h-full object-contain relative z-10"
                         />
                       </div>
-                      <span className="flex-1 text-left group-hover:text-white transition-colors truncate">
+                      <span className="flex-1 text-left transition-colors truncate relative z-10">
                         {lang.label}
                       </span>
                       {isLocked ? (
-                        <Lock className="w-4 h-4 text-gray-500 flex-shrink-0" />
+                        <Lock className="w-4 h-4 text-gray-500 flex-shrink-0 relative z-10" />
                       ) : (
-                        language === lang.id && <Sparkles className="w-4 h-4 text-yellow-400 animate-pulse flex-shrink-0" />
+                        isSelected && <Sparkles className="w-4 h-4 text-yellow-400 animate-pulse flex-shrink-0 relative z-10" />
                       )}
-                      {language === lang.id && (
+                      {isSelected && (
                         <motion.div
                           className="absolute inset-0 border-2 border-orange-500/30 rounded-lg"
                           transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
@@ -219,4 +263,5 @@ function LanguageSelector({ hasAccess, mobile = false }: { hasAccess: boolean; m
     </div>
   );
 }
+
 export default LanguageSelector;
