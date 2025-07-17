@@ -4,7 +4,7 @@ import { useCodeEditorStore } from "@/store/useCodeEditorStore";
 import React, { useEffect, useRef, useState } from "react";
 import { THEMES } from "../_constants";
 import { AnimatePresence, motion } from "framer-motion";
-import { CircleOff, Cloud, Github, Laptop, Moon, Palette, Sun } from "lucide-react";
+import { CircleOff, Cloud, Github, Laptop, Moon, Palette, Sun, ChevronDownIcon } from "lucide-react";
 import useMounted from "@/hooks/useMounted";
 
 const THEME_ICONS: Record<string, React.ReactNode> = {
@@ -56,11 +56,16 @@ function ThemeSelector({ mobile = false }: { mobile?: boolean }) {
     }
   }, [isOpen, mobile]);
 
+  const handleThemeSelect = (themeId: string) => {
+    setTheme(themeId);
+    setIsOpen(false);
+  };
+
   if (!mounted) return null;
 
   if (mobile) {
     return (
-      <div className="relative" ref={dropdownRef}>
+      <div className="relative isolate" ref={dropdownRef}>
         <motion.button
           ref={buttonRef}
           whileHover={{ scale: 1.05 }}
@@ -89,22 +94,30 @@ function ThemeSelector({ mobile = false }: { mobile?: boolean }) {
                 overflowY: 'auto',
               }}
             >
-              {THEMES.map((t) => (
-                <motion.button
-                  key={t.id}
-                  className={`
-                    relative w-full flex items-center gap-3 px-3 py-2.5 hover:bg-[#513e28] transition-all
-                    ${theme === t.id ? "bg-orange-500/10 text-yellow-400" : "text-gray-300"}
-                  `}
-                  onClick={() => setTheme(t.id)}
-                >
-                  <div className={`size-6 rounded-md ${theme === t.id ? "bg-orange-500/10" : "bg-gray-800/50"}`}>
-                    {THEME_ICONS[t.id] || <CircleOff className="w-4 h-4" />}
-                  </div>
-                  <span className="text-sm">{t.label}</span>
-                  <div className="size-3 rounded-full border border-gray-600" style={{ background: t.color }} />
-                </motion.button>
-              ))}
+              {THEMES.map((t) => {
+                const isSelected = theme === t.id;
+                
+                return (
+                  <button
+                    key={t.id}
+                    onClick={() => handleThemeSelect(t.id)}
+                    className={`
+                      relative w-full flex items-center gap-3 px-3 py-2.5 transition-all duration-200
+                      ${isSelected 
+                        ? "bg-orange-500/10 text-yellow-400" 
+                        : "text-gray-300"
+                      }
+                      hover:bg-[#513e28] hover:text-white cursor-pointer
+                    `}
+                  >
+                    <div className="size-5 flex-shrink-0">
+                      {THEME_ICONS[t.id] || <CircleOff className="w-4 h-4" />}
+                    </div>
+                    <span className="text-sm truncate">{t.label}</span>
+                    <div className="size-3 rounded-full border border-gray-600 flex-shrink-0" style={{ background: t.color }} />
+                  </button>
+                );
+              })}
             </motion.div>
           )}
         </AnimatePresence>
@@ -113,19 +126,28 @@ function ThemeSelector({ mobile = false }: { mobile?: boolean }) {
   }
 
   return (
-    <div className="relative" ref={dropdownRef}>
+    <div className="relative isolate" ref={dropdownRef}>
       <motion.button
         whileHover={{ scale: 1.02 }}
         whileTap={{ scale: 0.98 }}
         onClick={() => setIsOpen(!isOpen)}
-        className="relative group flex items-center gap-2 px-4 py-1.5 rounded-lg text-gray-300 bg-gray-700/50 hover:bg-blue-500/10 border border-gray-800 hover:border-orange-400/50 transition-all duration-300 shadow-lg overflow-hidden"
+        className="
+          relative flex items-center gap-2 px-4 py-1.5 rounded-lg text-gray-300 
+          bg-gray-700/50 hover:bg-blue-500/10 border border-gray-800 
+          hover:border-orange-400/50 transition-all duration-300 shadow-lg
+          before:absolute before:inset-0 before:bg-gradient-to-r before:from-orange-400/10 before:to-red-500/10 
+          before:rounded-lg before:opacity-0 hover:before:opacity-100 before:transition-opacity
+        "
       >
-        <div className="absolute inset-0 bg-gradient-to-r from-orange-400/10 to-red-500/10 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity" />
-        <Palette className="w-4 h-4 text-gray-400 group-hover:text-gray-300 transition-colors" />
-        <span className="text-gray-300 min-w-[80px] text-left group-hover:text-white transition-colors">
+        <Palette className="w-4 h-4 text-gray-400 group-hover:text-gray-300 transition-colors relative" />
+        <span className="relative text-gray-200 min-w-[80px] text-left hover:text-white transition-colors">
           {currentTheme?.label}
         </span>
         <div className="relative w-4 h-4 rounded-full border border-gray-600 group-hover:border-gray-500 transition-colors" style={{ background: currentTheme?.color }} />
+        <ChevronDownIcon className={`
+          relative size-4 text-gray-400 transition-all duration-300 hover:text-gray-300
+          ${isOpen ? "rotate-180" : ""}
+        `} />
       </motion.button>
 
       <AnimatePresence>
@@ -140,31 +162,67 @@ function ThemeSelector({ mobile = false }: { mobile?: boolean }) {
               maxWidth: 'calc(100vw - 32px)', // Prevent overflow
             }}
           >
-            <div className="px-2 pb-2 mb-2 border-b border-gray-800/50">
-              <p className="text-xs font-medium text-gray-400 px-2">Select Theme</p>
+            <div className="px-3 pb-2 mb-2 border-b border-gray-800/50">
+              <p className="text-xs font-medium text-gray-400">Select Theme</p>
             </div>
-            {THEMES.map((t, index) => (
-              <motion.button
-                key={t.id}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: index * 0.1 }}
-                className={`relative group w-full flex items-center gap-3 px-3 py-2.5 hover:bg-[#513e28] transition-all duration-200 ${theme === t.id ? "bg-orange-500/10 text-yellow-400" : "text-gray-300"}`}
-                onClick={() => setTheme(t.id)}
-              >
-                <div className="absolute inset-0 bg-gradient-to-r from-orange-400/10 to-red-500/10 opacity-0 group-hover:opacity-100 transition-opacity"/>
-                <div className={`flex items-center justify-center size-8 rounded-lg ${theme === t.id ? "bg-orange-500/10 text-yellow-400" : "bg-gray-800/50 text-gray-400"} group-hover:scale-110 transition-all duration-200`}>
-                  {THEME_ICONS[t.id] || <CircleOff className="w-4 h-4" />}
-                </div>
-                <span className="flex-1 text-left group-hover:text-white transition-colors">
-                  {t.label}
-                </span>
-                <div className="relative size-4 rounded-full border border-gray-600 group-hover:border-gray-500 transition-colors" style={{ background: t.color }} />
-                {theme === t.id && (
-                  <motion.div className="absolute inset-0 border-2 border-orange-500/30 rounded-lg" transition={{ type: "spring", bounce: 0.2, duration: 0.6 }} />
-                )}
-              </motion.button>
-            ))}
+            <div className="max-h-[280px] overflow-y-auto overflow-x-hidden hidescroll">
+              {THEMES.map((t, index) => {
+                const isSelected = theme === t.id;
+                
+                return (
+                  <motion.div
+                    key={t.id}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: index * 0.1 }}
+                    className="relative px-2"
+                  >
+                    <button
+                      className={`
+                        relative w-full flex items-center gap-3 px-3 py-2.5 rounded-lg 
+                        transition-all duration-200 group
+                        ${isSelected 
+                          ? "bg-orange-500/10 text-yellow-400" 
+                          : "text-gray-300"
+                        }
+                        hover:bg-[#513e28] hover:text-white cursor-pointer
+                        ${!isSelected 
+                          ? "hover:before:opacity-100" 
+                          : ""
+                        }
+                        before:absolute before:inset-0 before:bg-gradient-to-r 
+                        before:from-orange-400/10 before:to-red-500/10 before:rounded-lg 
+                        before:opacity-0 before:transition-opacity
+                      `}
+                      onClick={() => handleThemeSelect(t.id)}
+                    >
+                      <div className={`
+                        relative size-8 rounded-lg p-1.5 transition-all duration-200 flex-shrink-0
+                        ${isSelected 
+                          ? "bg-orange-500/10" 
+                          : "bg-gray-800/50"
+                        }
+                        group-hover:scale-110
+                      `}>
+                        <div className="w-full h-full object-contain relative z-10 flex items-center justify-center">
+                          {THEME_ICONS[t.id] || <CircleOff className="w-4 h-4" />}
+                        </div>
+                      </div>
+                      <span className="flex-1 text-left transition-colors truncate relative z-10">
+                        {t.label}
+                      </span>
+                      <div className="relative size-4 rounded-full border border-gray-600 group-hover:border-gray-500 transition-colors flex-shrink-0 z-10" style={{ background: t.color }} />
+                      {isSelected && (
+                        <motion.div
+                          className="absolute inset-0 border-2 border-orange-500/30 rounded-lg"
+                          transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+                        />
+                      )}
+                    </button>
+                  </motion.div>
+                );
+              })}
+            </div>
           </motion.div>
         )}
       </AnimatePresence>

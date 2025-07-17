@@ -110,7 +110,7 @@ function LanguageSelector({ hasAccess, mobile = false }: { hasAccess: boolean; m
                       }
                       ${isLocked 
                         ? "opacity-50 cursor-not-allowed" 
-                        : "hover:bg-[#262637] hover:text-white cursor-pointer"
+                        : "hover:bg-[#513e28] hover:text-white cursor-pointer"
                       }
                     `}
                   >
@@ -209,7 +209,7 @@ function LanguageSelector({ hasAccess, mobile = false }: { hasAccess: boolean; m
                         }
                         ${isLocked 
                           ? "opacity-50 cursor-not-allowed" 
-                          : "hover:bg-[#262637] hover:text-white cursor-pointer"
+                          : "hover:bg-[#513e28] hover:text-white cursor-pointer"
                         }
                         ${!isLocked && !isSelected 
                           ? "hover:before:opacity-100" 
