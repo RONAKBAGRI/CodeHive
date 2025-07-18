@@ -42,7 +42,7 @@ function Footer() {
           {/* Contact & Creator */}
           <div className="space-y-3">
             <h3 className="text-sm font-bold uppercase tracking-widest text-gray-500">
-              Created by
+              Developed by
             </h3>
             <p className="text-gray-300 font-medium">Ronak Bagri</p>
             <div className="flex items-center gap-4 text-xl">
