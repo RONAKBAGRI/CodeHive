@@ -35,14 +35,14 @@ function CommentForm({ isSubmitting, onSubmit }: CommentFormProps) {
 
   return (
     <form onSubmit={handleSubmit} className="mb-8">
-      <div className="bg-[#0a0a0f] rounded-xl border border-[#ffffff0a] overflow-hidden">
+      <div className="bg-[#786241]/40 rounded-xl border border-[#ffffff0a] overflow-hidden">
         {/* Comment form header */}
         <div className="flex justify-end gap-2 px-4 pt-2">
           <button
             type="button"
             onClick={() => setIsPreview(!isPreview)}
             className={`text-sm px-3 py-1 rounded-md transition-colors ${
-              isPreview ? "bg-blue-500/10 text-blue-400" : "hover:bg-[#ffffff08] text-gray-400"
+              isPreview ? "bg-blue-500/10 text-gray-400" : "hover:bg-[#ffffff08] text-gray-400"
             }`}
           >
             {isPreview ? "Edit" : "Preview"}
@@ -79,7 +79,8 @@ function CommentForm({ isSubmitting, onSubmit }: CommentFormProps) {
           <button
             type="submit"
             disabled={isSubmitting || !comment.trim()}
-            className="flex items-center gap-2 px-4 py-2 bg-[#3b82f6] text-white rounded-lg hover:bg-[#2563eb] disabled:opacity-50 disabled:cursor-not-allowed transition-all ml-auto"
+            className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r
+               from-green-600 to-green-500 text-white rounded-lg disabled:opacity-50 disabled:cursor-not-allowed transition-all ml-auto"
           >
             {isSubmitting ? (
               <>

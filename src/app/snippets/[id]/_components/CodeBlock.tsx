@@ -9,9 +9,9 @@ const CodeBlock = ({ language, code }: { language: string; code: string }) => {
     .join("\n"); // join back into a single string
 
   return (
-    <div className="my-4 bg-[#0a0a0f] rounded-lg overflow-hidden border border-[#ffffff0a]">
+    <div className="my-4 bg-[#2f2e2a] rounded-lg overflow-hidden border border-[#ffffff0a] ">
       {/* header bar showing language and copy button */}
-      <div className="flex items-center justify-between px-4 py-2 bg-[#ffffff08]">
+      <div className="flex items-center justify-between px-4 py-2 bg-[#ffffff08] ">
         {/* language indicator with icon */}
         <div className="flex items-center gap-2">
           <img src={`/${language}.png`} alt={language} className="size-4 object-contain" />
