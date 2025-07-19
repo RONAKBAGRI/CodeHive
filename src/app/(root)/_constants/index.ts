@@ -18,23 +18,28 @@ export const LANGUAGE_CONFIG: LanguageConfig = {
     id: "javascript",
     label: "JavaScript",
     logoPath: "/javascript.png",
-    pistonRuntime: { language: "javascript", version: "18.15.0" }, // api that we're gonna be using
+    pistonRuntime: { language: "javascript", version: "18.15.0" },
     monacoLanguage: "javascript",
-    defaultCode: `// JavaScript Playground
-const numbers = [1, 2, 3, 4, 5];
+    defaultCode: `// Basic JavaScript Example
+let numbers = [5, 10, 15, 20];
+let name = "Alice";
 
-// Map numbers to their squares
-const squares = numbers.map(n => n * n);
-console.log('Original numbers:', numbers);
-console.log('Squared numbers:', squares);
+// Print array
+console.log("Numbers:", numbers);
 
-// Filter for even numbers
-const evenNumbers = numbers.filter(n => n % 2 === 0);
-console.log('Even numbers:', evenNumbers);
+// Calculate sum
+let sum = 0;
+for (let i = 0; i < numbers.length; i++) {
+    sum += numbers[i];
+}
+console.log("Sum:", sum);
 
-// Calculate sum using reduce
-const sum = numbers.reduce((acc, curr) => acc + curr, 0);
-console.log('Sum of numbers:', sum);`,
+// Calculate average
+let average = sum / numbers.length;
+console.log("Average:", average);
+
+// Simple greeting
+console.log("Hello, " + name + "!");`,
   },
   typescript: {
     id: "typescript",
@@ -42,36 +47,30 @@ console.log('Sum of numbers:', sum);`,
     logoPath: "/typescript.png",
     pistonRuntime: { language: "typescript", version: "5.0.3" },
     monacoLanguage: "typescript",
-    defaultCode: `// TypeScript Playground
-interface NumberArray {
-  numbers: number[];
-  sum(): number;
-  squares(): number[];
-  evenNumbers(): number[];
+    defaultCode: `// Basic TypeScript Example
+let numbers: number[] = [3, 6, 9, 12];
+let message: string = "Welcome!";
+
+// Print array
+console.log("Numbers:", numbers);
+
+// Calculate sum
+let sum: number = 0;
+for (let num of numbers) {
+    sum += num;
+}
+console.log("Sum:", sum);
+
+// Calculate average
+let average: number = sum / numbers.length;
+console.log("Average:", average);
+
+// Simple function
+function greet(name: string): string {
+    return "Hello, " + name;
 }
 
-class MathOperations implements NumberArray {
-  constructor(public numbers: number[]) {}
-
-  sum(): number {
-    return this.numbers.reduce((acc, curr) => acc + curr, 0);
-  }
-
-  squares(): number[] {
-    return this.numbers.map(n => n * n);
-  }
-
-  evenNumbers(): number[] {
-    return this.numbers.filter(n => n % 2 === 0);
-  }
-}
-
-const math = new MathOperations([1, 2, 3, 4, 5]);
-
-console.log('Original numbers:', math.numbers);
-console.log('Squared numbers:', math.squares());
-console.log('Even numbers:', math.evenNumbers());
-console.log('Sum of numbers:', math.sum());`,
+console.log(greet("Bob"));`,
   },
   python: {
     id: "python",
@@ -79,21 +78,26 @@ console.log('Sum of numbers:', math.sum());`,
     logoPath: "/python.png",
     pistonRuntime: { language: "python", version: "3.10.0" },
     monacoLanguage: "python",
-    defaultCode: `# Python Playground
-numbers = [1, 2, 3, 4, 5]
+    defaultCode: `# Basic Python Example
+numbers = [4, 8, 12, 16, 20]
+name = "Charlie"
 
-# Map numbers to their squares
-squares = [n ** 2 for n in numbers]
-print(f"Original numbers: {numbers}")
-print(f"Squared numbers: {squares}")
-
-# Filter for even numbers
-even_numbers = [n for n in numbers if n % 2 == 0]
-print(f"Even numbers: {even_numbers}")
+# Print array
+print("Numbers:", numbers)
 
 # Calculate sum
-numbers_sum = sum(numbers)
-print(f"Sum of numbers: {numbers_sum}")`,
+total = sum(numbers)
+print("Sum:", total)
+
+# Calculate average
+average = total / len(numbers)
+print("Average:", average)
+
+# Simple greeting
+print(f"Hello, {name}!")
+
+# Find maximum
+print("Max number:", max(numbers))`,
   },
   java: {
     id: "java",
@@ -102,39 +106,32 @@ print(f"Sum of numbers: {numbers_sum}")`,
     pistonRuntime: { language: "java", version: "15.0.2" },
     monacoLanguage: "java",
     defaultCode: `public class Main {
-  public static void main(String[] args) {
-      // Create array
-      int[] numbers = {1, 2, 3, 4, 5};
-      
-      // Print original numbers
-      System.out.print("Original numbers: ");
-      printArray(numbers);
-      
-      // Calculate and print squares
-      int[] squares = new int[numbers.length];
-      for (int i = 0; i < numbers.length; i++) {
-          squares[i] = numbers[i] * numbers[i];
-      }
-      System.out.print("Squared numbers: ");
-      printArray(squares);
-      
-      // Print even numbers
-      System.out.print("Even numbers: ");
-      for (int n : numbers) {
-          if (n % 2 == 0) System.out.print(n + " ");
-      }
-      System.out.println();
-      
-      // Calculate and print sum
-      int sum = 0;
-      for (int n : numbers) sum += n;
-      System.out.println("Sum of numbers: " + sum);
-  }
-  
-  private static void printArray(int[] arr) {
-      for (int n : arr) System.out.print(n + " ");
-      System.out.println();
-  }
+    public static void main(String[] args) {
+        // Basic Java Example
+        int[] numbers = {2, 4, 6, 8, 10};
+        String name = "Diana";
+        
+        // Print array
+        System.out.print("Numbers: ");
+        for (int num : numbers) {
+            System.out.print(num + " ");
+        }
+        System.out.println();
+        
+        // Calculate sum
+        int sum = 0;
+        for (int num : numbers) {
+            sum += num;
+        }
+        System.out.println("Sum: " + sum);
+        
+        // Calculate average
+        double average = (double) sum / numbers.length;
+        System.out.println("Average: " + average);
+        
+        // Simple greeting
+        System.out.println("Hello, " + name + "!");
+    }
 }`,
   },
   go: {
@@ -148,34 +145,26 @@ print(f"Sum of numbers: {numbers_sum}")`,
 import "fmt"
 
 func main() {
-  // Create slice
-  numbers := []int{1, 2, 3, 4, 5}
-  
-  // Print original numbers
-  fmt.Println("Original numbers:", numbers)
-  
-  // Calculate squares
-  squares := make([]int, len(numbers))
-  for i, n := range numbers {
-      squares[i] = n * n
-  }
-  fmt.Println("Squared numbers:", squares)
-  
-  // Filter even numbers
-  var evenNumbers []int
-  for _, n := range numbers {
-      if n%2 == 0 {
-          evenNumbers = append(evenNumbers, n)
-      }
-  }
-  fmt.Println("Even numbers:", evenNumbers)
-  
-  // Calculate sum
-  sum := 0
-  for _, n := range numbers {
-      sum += n
-  }
-  fmt.Println("Sum of numbers:", sum)
+    // Basic Go Example
+    numbers := []int{1, 3, 5, 7, 9}
+    name := "Eve"
+    
+    // Print array
+    fmt.Println("Numbers:", numbers)
+    
+    // Calculate sum
+    sum := 0
+    for _, num := range numbers {
+        sum += num
+    }
+    fmt.Println("Sum:", sum)
+    
+    // Calculate average
+    average := float64(sum) / float64(len(numbers))
+    fmt.Printf("Average: %.2f\\n", average)
+    
+    // Simple greeting
+    fmt.Println("Hello,", name+"!")
 }`,
   },
   rust: {
@@ -185,30 +174,27 @@ func main() {
     pistonRuntime: { language: "rust", version: "1.68.2" },
     monacoLanguage: "rust",
     defaultCode: `fn main() {
-    // Create vector
-    let numbers = vec![1, 2, 3, 4, 5];
+    // Basic Rust Example
+    let numbers = vec![6, 12, 18, 24, 30];
+    let name = "Frank";
     
-    // Print original numbers
-    println!("Original numbers: {:?}", numbers);
-    
-    // Calculate squares
-    let squares: Vec<i32> = numbers
-        .iter()
-        .map(|&n| n * n)
-        .collect();
-    println!("Squared numbers: {:?}", squares);
-    
-    // Filter even numbers
-    let even_numbers: Vec<i32> = numbers
-        .iter()
-        .filter(|&&n| n % 2 == 0)
-        .cloned()
-        .collect();
-    println!("Even numbers: {:?}", even_numbers);
+    // Print array
+    println!("Numbers: {:?}", numbers);
     
     // Calculate sum
     let sum: i32 = numbers.iter().sum();
-    println!("Sum of numbers: {}", sum);
+    println!("Sum: {}", sum);
+    
+    // Calculate average
+    let average = sum as f64 / numbers.len() as f64;
+    println!("Average: {:.2}", average);
+    
+    // Simple greeting
+    println!("Hello, {}!", name);
+    
+    // Find largest number
+    let max_num = numbers.iter().max().unwrap();
+    println!("Largest: {}", max_num);
 }`,
   },
   cpp: {
@@ -218,39 +204,34 @@ func main() {
     pistonRuntime: { language: "cpp", version: "10.2.0" },
     monacoLanguage: "cpp",
     defaultCode: `#include <iostream>
-#include <vector>
-#include <algorithm>
-#include <numeric>
+using namespace std;
 
 int main() {
-    // Create vector
-    std::vector<int> numbers = {1, 2, 3, 4, 5};
+    // Basic C++ Example
+    int numbers[] = {7, 14, 21, 28, 35};
+    int size = 5;
+    string name = "Grace";
     
-    // Print original numbers
-    std::cout << "Original numbers: ";
-    for (int n : numbers) std::cout << n << " ";
-    std::cout << std::endl;
-    
-    // Calculate squares
-    std::vector<int> squares;
-    std::transform(numbers.begin(), numbers.end(), 
-                  std::back_inserter(squares),
-                  [](int n) { return n * n; });
-    
-    std::cout << "Squared numbers: ";
-    for (int n : squares) std::cout << n << " ";
-    std::cout << std::endl;
-    
-    // Filter even numbers
-    std::cout << "Even numbers: ";
-    for (int n : numbers) {
-        if (n % 2 == 0) std::cout << n << " ";
+    // Print array
+    cout << "Numbers: ";
+    for (int i = 0; i < size; i++) {
+        cout << numbers[i] << " ";
     }
-    std::cout << std::endl;
+    cout << endl;
     
     // Calculate sum
-    int sum = std::accumulate(numbers.begin(), numbers.end(), 0);
-    std::cout << "Sum of numbers: " << sum << std::endl;
+    int sum = 0;
+    for (int i = 0; i < size; i++) {
+        sum += numbers[i];
+    }
+    cout << "Sum: " << sum << endl;
+    
+    // Calculate average
+    double average = (double)sum / size;
+    cout << "Average: " << average << endl;
+    
+    // Simple greeting
+    cout << "Hello, " << name << "!" << endl;
     
     return 0;
 }`,
@@ -262,27 +243,33 @@ int main() {
     pistonRuntime: { language: "csharp", version: "6.12.0" },
     monacoLanguage: "csharp",
     defaultCode: `using System;
-using System.Linq;
 
 class Program {
     static void Main() {
-        // Create array
-        int[] numbers = { 1, 2, 3, 4, 5 };
+        // Basic C# Example
+        int[] numbers = {10, 20, 30, 40, 50};
+        string name = "Henry";
         
-        // Print original numbers
-        Console.WriteLine($"Original numbers: {string.Join(" ", numbers)}");
-        
-        // Calculate squares
-        var squares = numbers.Select(n => n * n);
-        Console.WriteLine($"Squared numbers: {string.Join(" ", squares)}");
-        
-        // Filter even numbers
-        var evenNumbers = numbers.Where(n => n % 2 == 0);
-        Console.WriteLine($"Even numbers: {string.Join(" ", evenNumbers)}");
+        // Print array
+        Console.Write("Numbers: ");
+        foreach (int num in numbers) {
+            Console.Write(num + " ");
+        }
+        Console.WriteLine();
         
         // Calculate sum
-        var sum = numbers.Sum();
-        Console.WriteLine($"Sum of numbers: {sum}");
+        int sum = 0;
+        foreach (int num in numbers) {
+            sum += num;
+        }
+        Console.WriteLine("Sum: " + sum);
+        
+        // Calculate average
+        double average = (double)sum / numbers.Length;
+        Console.WriteLine("Average: " + average);
+        
+        // Simple greeting
+        Console.WriteLine("Hello, " + name + "!");
     }
 }`,
   },
@@ -292,23 +279,26 @@ class Program {
     logoPath: "/ruby.png",
     pistonRuntime: { language: "ruby", version: "3.0.1" },
     monacoLanguage: "ruby",
-    defaultCode: `# Create array
-numbers = [1, 2, 3, 4, 5]
+    defaultCode: `# Basic Ruby Example
+numbers = [8, 16, 24, 32, 40]
+name = "Ivy"
 
-# Print original numbers
-puts "Original numbers: #{numbers.join(' ')}"
-
-# Calculate squares
-squares = numbers.map { |n| n * n }
-puts "Squared numbers: #{squares.join(' ')}"
-
-# Filter even numbers
-even_numbers = numbers.select { |n| n.even? }
-puts "Even numbers: #{even_numbers.join(' ')}"
+# Print array
+puts "Numbers: #{numbers.join(', ')}"
 
 # Calculate sum
 sum = numbers.sum
-puts "Sum of numbers: #{sum}"`,
+puts "Sum: #{sum}"
+
+# Calculate average
+average = sum.to_f / numbers.length
+puts "Average: #{average}"
+
+# Simple greeting
+puts "Hello, #{name}!"
+
+# Find minimum
+puts "Smallest: #{numbers.min}"`,
   },
   swift: {
     id: "swift",
@@ -316,23 +306,27 @@ puts "Sum of numbers: #{sum}"`,
     logoPath: "/swift.png",
     pistonRuntime: { language: "swift", version: "5.3.3" },
     monacoLanguage: "swift",
-    defaultCode: `// Create array
-let numbers = [1, 2, 3, 4, 5]
+    defaultCode: `// Basic Swift Example
+let numbers = [9, 18, 27, 36, 45]
+let name = "Jack"
 
-// Print original numbers
-print("Original numbers: \\(numbers)")
-
-// Calculate squares
-let squares = numbers.map { $0 * $0 }
-print("Squared numbers: \\(squares)")
-
-// Filter even numbers
-let evenNumbers = numbers.filter { $0 % 2 == 0 }
-print("Even numbers: \\(evenNumbers)")
+// Print array
+print("Numbers: \\(numbers)")
 
 // Calculate sum
 let sum = numbers.reduce(0, +)
-print("Sum of numbers: \\(sum)")`,
+print("Sum: \\(sum)")
+
+// Calculate average
+let average = Double(sum) / Double(numbers.count)
+print("Average: \\(average)")
+
+// Simple greeting
+print("Hello, \\(name)!")
+
+// Find maximum
+let maxNumber = numbers.max() ?? 0
+print("Largest: \\(maxNumber)")`,
   },
 };
 

@@ -37,7 +37,7 @@ function ProfileHeader({ userStats, userData, user }: ProfileHeaderProps) {
       label: "Code Executions",
       value: userStats?.totalExecutions ?? 0,
       icon: Activity,
-      color: "from-blue-500 to-cyan-500",
+      color: "from-purple-800 to-blue-500",
       gradient: "group-hover:via-blue-400",
       description: "Total code runs",
       metric: {
@@ -50,7 +50,7 @@ function ProfileHeader({ userStats, userData, user }: ProfileHeaderProps) {
       label: "Starred Snippets",
       value: starredSnippets?.length ?? 0,
       icon: Star,
-      color: "from-yellow-500 to-orange-500",
+      color: "from-yellow-500 to-gray-700",
       gradient: "group-hover:via-yellow-400",
       description: "Saved for later",
       metric: {
@@ -76,14 +76,14 @@ function ProfileHeader({ userStats, userData, user }: ProfileHeaderProps) {
 
   return (
     <div
-      className="relative mb-8 bg-gradient-to-br from-[#12121a] to-[#1a1a2e] rounded-2xl p-8 border
+      className="relative mb-8 bg-gray-700/50 rounded-2xl p-8 border
      border-gray-800/50 overflow-hidden"
     >
       <div className="absolute inset-0 bg-grid-white/[0.02] bg-[size:32px]" />
       <div className="relative flex items-center gap-8">
         <div className="relative group">
           <div
-            className="absolute inset-0 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full 
+            className="absolute inset-0 bg-gradient-to-r from-blue-500 to-orange-600 rounded-full 
           blur-xl opacity-50 group-hover:opacity-75 transition-opacity"
           />
           <img
@@ -93,7 +93,7 @@ function ProfileHeader({ userStats, userData, user }: ProfileHeaderProps) {
           />
           {userData.isPro && (
             <div
-              className="absolute -top-2 -right-2 bg-gradient-to-r from-purple-500 to-purple-600 p-2
+              className="absolute -top-2 -right-2 bg-gradient-to-r from-yellow-500 to-purple-600 p-2
              rounded-full z-20 shadow-lg animate-pulse"
             >
               <Zap className="w-4 h-4 text-white" />
@@ -109,7 +109,7 @@ function ProfileHeader({ userStats, userData, user }: ProfileHeaderProps) {
               </span>
             )}
           </div>
-          <p className="text-gray-400 flex items-center gap-2">
+          <p className="text-gray-300 flex items-center gap-2">
             <UserIcon className="w-4 h-4" />
             {userData.email}
           </p>

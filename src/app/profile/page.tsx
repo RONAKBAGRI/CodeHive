@@ -45,9 +45,7 @@ function ProfilePage() {
     loadMore,
   } = usePaginatedQuery(
     api.codeExecution.getUserExecutions,
-    {
-      userId: user?.id ?? "",
-    },
+    { userId: user?.id ?? "" },
     { initialNumItems: 5 }
   );
 
@@ -60,23 +58,18 @@ function ProfilePage() {
   if (!user && isLoaded) return router.push("/");
 
   return (
-    <div className="min-h-screen bg-[#0a0a0f]">
+    <div className="min-h-screen bg-gradient-to-b from-orange-800 to-gray-600">
       <NavigationHeader />
 
       <div className="max-w-7xl mx-auto px-4 py-12">
         {/* Profile Header */}
-
         {userStats && userData && (
           <ProfileHeader userStats={userStats} userData={userData} user={user!} />
         )}
-
         {(userStats === undefined || !isLoaded) && <ProfileHeaderSkeleton />}
 
         {/* Main content */}
-        <div
-          className="bg-gradient-to-br from-[#12121a] to-[#1a1a2e] rounded-3xl shadow-2xl 
-        shadow-black/50 border border-gray-800/50 backdrop-blur-xl overflow-hidden"
-        >
+        <div className="bg-gray-700/50 rounded-3xl shadow-2xl shadow-black/50 border border-gray-800/50 backdrop-blur-xl overflow-hidden">
           {/* Tabs */}
           <div className="border-b border-gray-800/50">
             <div className="flex space-x-1 p-4">
@@ -116,9 +109,9 @@ function ProfilePage() {
               transition={{ duration: 0.2 }}
               className="p-6"
             >
-              {/* ACTIVE TAB IS EXECUTIONS: */}
+              {/* === Executions Tab === */}
               {activeTab === "executions" && (
-                <div className="space-y-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   {executions?.map((execution) => (
                     <div
                       key={execution._id}
@@ -181,7 +174,7 @@ function ProfilePage() {
                   ))}
 
                   {isLoadingExecutions ? (
-                    <div className="text-center py-12">
+                    <div className="col-span-full text-center py-12">
                       <Loader2 className="w-12 h-12 text-gray-600 mx-auto mb-4 animate-spin" />
                       <h3 className="text-lg font-medium text-gray-400 mb-2">
                         Loading code executions...
@@ -189,7 +182,7 @@ function ProfilePage() {
                     </div>
                   ) : (
                     executions.length === 0 && (
-                      <div className="text-center py-12">
+                      <div className="col-span-full text-center py-12">
                         <Code className="w-12 h-12 text-gray-600 mx-auto mb-4" />
                         <h3 className="text-lg font-medium text-gray-400 mb-2">
                           No code executions yet
@@ -199,9 +192,8 @@ function ProfilePage() {
                     )
                   )}
 
-                  {/* Load More Button */}
                   {executionStatus === "CanLoadMore" && (
-                    <div className="flex justify-center mt-8">
+                    <div className="col-span-full flex justify-center mt-8">
                       <button
                         onClick={handleLoadMore}
                         className="px-6 py-3 bg-blue-500/10 hover:bg-blue-500/20 text-blue-400 rounded-lg flex items-center gap-2 
@@ -215,17 +207,13 @@ function ProfilePage() {
                 </div>
               )}
 
-              {/* ACTIVE TAB IS STARS: */}
+              {/* === Starred Snippets Tab === */}
               {activeTab === "starred" && (
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   {starredSnippets?.map((snippet) => (
                     <div key={snippet._id} className="group relative">
                       <Link href={`/snippets/${snippet._id}`}>
-                        <div
-                          className="bg-black/20 rounded-xl border border-gray-800/50 hover:border-gray-700/50 
-                          transition-all duration-300 overflow-hidden h-full group-hover:transform
-                        group-hover:scale-[1.02]"
-                        >
+                        <div className="bg-black/20 rounded-xl border border-gray-800/50 hover:border-gray-700/50 transition-all duration-300 overflow-hidden h-full group-hover:transform group-hover:scale-[1.02]">
                           <div className="p-6">
                             <div className="flex items-center justify-between mb-4">
                               <div className="flex items-center gap-3">
@@ -293,4 +281,5 @@ function ProfilePage() {
     </div>
   );
 }
+
 export default ProfilePage;

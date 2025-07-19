@@ -7,6 +7,42 @@ import Image from "next/image";
 import { ChevronDownIcon, Lock, Sparkles } from "lucide-react";
 import useMounted from "@/hooks/useMounted";
 
+// Define the custom order for languages
+const LANGUAGE_ORDER = [
+  "python",
+  "java", 
+  "cpp",
+  "javascript",
+  "typescript",
+  "csharp",
+  "go",
+  "rust",
+  "ruby",
+  "swift"
+];
+
+// Helper function to get languages in custom order
+const getOrderedLanguages = () => {
+  const orderedLanguages = [];
+  const allLanguageIds = Object.keys(LANGUAGE_CONFIG);
+  
+  // First, add languages in the specified order
+  for (const langId of LANGUAGE_ORDER) {
+    if (LANGUAGE_CONFIG[langId]) {
+      orderedLanguages.push(LANGUAGE_CONFIG[langId]);
+    }
+  }
+  
+  // Then add any remaining languages that weren't in the order array
+  for (const langId of allLanguageIds) {
+    if (!LANGUAGE_ORDER.includes(langId)) {
+      orderedLanguages.push(LANGUAGE_CONFIG[langId]);
+    }
+  }
+  
+  return orderedLanguages;
+};
+
 function LanguageSelector({ hasAccess, mobile = false }: { hasAccess: boolean; mobile?: boolean }) {
   const [isOpen, setIsOpen] = useState(false);
   const [dropdownPosition, setDropdownPosition] = useState<'left' | 'right'>('right');
@@ -54,6 +90,9 @@ function LanguageSelector({ hasAccess, mobile = false }: { hasAccess: boolean; m
 
   if (!mounted) return null;
 
+  // Get languages in custom order
+  const orderedLanguages = getOrderedLanguages();
+
   if (mobile) {
     return (
       <div className="relative isolate" ref={dropdownRef}>
@@ -93,7 +132,7 @@ function LanguageSelector({ hasAccess, mobile = false }: { hasAccess: boolean; m
                 overflowY: 'auto',
               }}
             >
-              {Object.values(LANGUAGE_CONFIG).map((lang) => {
+              {orderedLanguages.map((lang) => {
                 const isLocked = !hasAccess && lang.id !== "cpp";
                 const isSelected = language === lang.id;
                 
@@ -187,7 +226,7 @@ function LanguageSelector({ hasAccess, mobile = false }: { hasAccess: boolean; m
               <p className="text-xs font-medium text-gray-400">Select Language</p>
             </div>
             <div className="max-h-[280px] overflow-y-auto overflow-x-hidden hidescroll">
-              {Object.values(LANGUAGE_CONFIG).map((lang, index) => {
+              {orderedLanguages.map((lang, index) => {
                 const isLocked = !hasAccess && lang.id !== "cpp";
                 const isSelected = language === lang.id;
                 
