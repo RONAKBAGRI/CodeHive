@@ -9,7 +9,7 @@ import { api } from "../../../../convex/_generated/api";
 
 function RunButton({ mobile = false }: { mobile?: boolean }) {
   const { user } = useUser();
-  const { runCode, language, isRunning } = useCodeEditorStore();
+  const { runCode, language, isRunning, input } = useCodeEditorStore(); // Added input
   const saveExecution = useMutation(api.codeExecution.saveExecution);
 
   const handleRun = async () => {
@@ -19,6 +19,7 @@ function RunButton({ mobile = false }: { mobile?: boolean }) {
       await saveExecution({
         language,
         code: result.code,
+        input: input || undefined, // Added input
         output: result.output || undefined,
         error: result.error || undefined,
       });
@@ -75,4 +76,5 @@ function RunButton({ mobile = false }: { mobile?: boolean }) {
     </motion.button>
   );
 }
+
 export default RunButton;
