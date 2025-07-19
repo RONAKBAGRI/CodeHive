@@ -31,7 +31,7 @@ const CardSkeleton = () => (
 
 export default function SnippetsPageSkeleton() {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-yellow-600 to-gray-950">
+    <div className="min-h-screen bg-gradient-to-b from-orange-800 to-gray-600">
       {/* Ambient warm background glow */}
       <div className="fixed inset-0 flex items-center justify-center pointer-events-none overflow-hidden z-0">
         <div className="absolute top-[20%] -left-1/4 w-96 h-96 bg-orange-500/20 rounded-full blur-3xl" />

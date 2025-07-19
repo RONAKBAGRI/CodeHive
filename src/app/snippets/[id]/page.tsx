@@ -26,7 +26,7 @@ function SnippetDetailPage() {
   if (snippet === undefined) return <SnippetLoadingSkeleton />;
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-yellow-600 to-gray-950 text-white">
+    <div className="min-h-screen bg-gradient-to-b from-orange-800 to-gray-600 text-white">
       <NavigationHeader />
 
       <main className="max-w-[90rem] mx-auto px-4 sm:px-6 lg:px-8 py-8">

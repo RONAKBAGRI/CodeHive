@@ -41,7 +41,7 @@ function SnippetsPage() {
   });
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-yellow-600 to-gray-950">
+    <div className="min-h-screen bg-gradient-to-b from-orange-800 to-gray-600">
       <NavigationHeader />
 
       <div className="relative max-w-7xl mx-auto px-4 py-12">

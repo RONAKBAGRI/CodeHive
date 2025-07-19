@@ -33,7 +33,7 @@ export default function RootLayout({
         <head>
            <link rel="icon" href="/logo3.png" type="image/png" />
         </head>
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen bg-gradient-to-b from-yellow-600 to-gray-950 text-gray-100 flex flex-col`}>
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen bg-gradient-to-b from-orange-800 to-gray-600 text-gray-100 flex flex-col`}>
        <ConvexClientProvider>{children}</ConvexClientProvider> 
        <Footer />
        <Toaster/>
