@@ -1,17 +1,33 @@
 <p align="center">
   <img src="public/logo2.png" alt="CodeHive Logo" width="300"/>
-  <h2 align="center"><strong>The Future of Online Coding</strong></h2>
+  <h2 align="center"><strong>Where Code Meets Community</strong></h2>
 </p>
 
 Welcome to **CodeHive**, an advanced, community-driven online IDE designed for developers and learners to write, run, and share code seamlessly.  
 
+---
+
+## 🖼️ Preview Screenshots
+
+| Page | Preview |
+|------|---------|
+| **Home Page** | ![Home Page](screenshots/home.png) |
+| **Share Snippet ** | ![Share Snippet](screenshots/sharesnippets.png) |
+| **Snippet Page** | ![Snippet Page](screenshots/snippets.png) |
+| **Snippet Detail Page** | ![Snippet Detail](screenshots/snippet-detail.png) |
+| **Profile Page** | ![Profile Page](screenshots/profile.png) |
+| **Payment Page** | ![Payment Page](screenshots/payment.png) |
+
+
+---
+
 ## 🚀 Tech Stack
 
-- **Next.js 15** — Powerful React framework for building fast, scalable web applications
-- **Convex** — Serverless data storage and real-time backend
-- **Clerk** — User authentication and account management
-- **TypeScript** — Strongly typed language for better code reliability
-- **LemonSqueezy** — Payment gateway for managing Free & Pro plans
+- **Next.js 15** — Powerful React framework for building fast, scalable web applications  
+- **Convex** — Serverless data storage and real-time backend  
+- **Clerk** — User authentication and account management  
+- **TypeScript** — Strongly typed language for better code reliability  
+- **LemonSqueezy** — Payment gateway for managing Free & Pro plans  
 
 ---
 
@@ -19,6 +35,9 @@ Welcome to **CodeHive**, an advanced, community-driven online IDE designed for d
 
 ### 💻 Online IDE with Multi-Language Support
 Write and execute code in **10 different languages**, making it easy to experiment and learn across multiple tech stacks.
+
+### ✍️ Custom Input Support
+Users can now provide **custom input** while executing code — enabling dynamic and interactive testing scenarios.
 
 ### 🎨 Customizable Developer Experience
 Choose from **5 popular VSCode-inspired themes** and adjust font sizes to suit your style.
@@ -60,31 +79,22 @@ CodeHive isn’t just another online IDE. It’s a **complete coding ecosystem**
 
 ## ✅ Getting Started
 
-Stay tuned! The project is currently under active development.  
-✨ A detailed installation and usage guide will be added soon.
 
 ---
 
 ## 🙌 Contributing
 
-Community contributions are at the heart of CodeHive. Once we open-source, we welcome PRs, ideas, and feature requests to make this platform even better.
+Community contributions are at the heart of CodeHive.  
+Once we open-source, we welcome PRs, ideas, and feature requests to make this platform even better.
 
 ---
-
-## 💡 License
-
-This project will be licensed soon. Check back for updates!
 
 ---
 
 ## 🌐 Links
 
-- 🌟 [Visit Our Website](#) — Coming Soon!
-- 💬 [Join the Community](#) — Discord/Slack invite coming soon
+- 🌟 [Visit Our Website](https://code-hive-by-ronak.vercel.app/) — Live!
 
 ---
 
 ### 🚀 Let’s code the future, together!
-
----
-
