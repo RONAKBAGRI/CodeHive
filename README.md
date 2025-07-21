@@ -65,10 +65,6 @@ Control your coding experience with adjustable **font sizes** and theme settings
 
 ### 🔗 Webhook Integration
 Integrate your IDE workflows with external services and automate tasks using webhook support.
-
-### 🌟 Professional Deployment Walkthrough
-Detailed, step-by-step deployment guide so you can understand the full deployment process and replicate it yourself.
-
 ---
 
 ## 💬 Why CodeHive?
@@ -77,9 +73,54 @@ CodeHive isn’t just another online IDE. It’s a **complete coding ecosystem**
 
 ---
 
+
 ## ✅ Getting Started
 
+Follow these steps to set up the project locally:
 
+### 1. 📦 Clone the Repository
+
+```bash
+git clone https://github.com/RONAKBAGRI/CodeHive
+cd codehive
+```
+
+### 2. 📁 Install Dependencies
+
+```bash
+npm install
+```
+
+### 3. ⚙️ Set Environment Variables
+Create a .env.local file in the root directory and configure the following:
+
+```bash
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=your_clerk_publishable_key
+CLERK_SECRET_KEY=your_clerk_secret_key
+
+CONVEX_DEPLOYMENT=your_convex_deployment_url
+NEXT_PUBLIC_CONVEX_URL=your_convex_project_url
+
+CLERK_WEBHOOK_SECRET=your_clerk_webhook_secret
+LEMON_SQUEEZY_WEBHOOK_SECRET=your_lemonsqueezy_webhook_secret
+
+NEXT_PUBLIC_PISTON_API_BASE_URL=https://emkc.org/api/v2/piston
+
+NEXT_PUBLIC_APP_URL=http://localhost:3000
+
+NEXT_PUBLIC_LEMONSQUEEZY_STORE_ID=your_lemonsqueezy_store_id
+NEXT_PUBLIC_LEMONSQUEEZY_API_KEY=your_lemonsqueezy_api_key
+```
+### 4. 🧠 Set Up Convex
+Login to Convex . Then start the Convex dev server in a separate terminal:
+```bash
+npx convex dev
+```
+
+### 5. Run the App
+```bash
+npm run dev
+```
 ---
 
 ## 🙌 Contributing
