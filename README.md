@@ -23,11 +23,11 @@ Welcome to **CodeHive**, an advanced, community-driven online IDE designed for d
 
 ## 🚀 Tech Stack
 
-- **Next.js 15** — Powerful React framework for building fast, scalable web applications  
-- **Convex** — Serverless data storage and real-time backend  
-- **Clerk** — User authentication and account management  
-- **TypeScript** — Strongly typed language for better code reliability  
-- **LemonSqueezy** — Payment gateway for managing Free & Pro plans  
+- ![Next.js](https://img.shields.io/badge/Next.js-000000?logo=next.js&logoColor=white) — Powerful React framework for building fast, scalable web applications  
+- ![Convex](https://img.shields.io/badge/Convex-0B0B0B?logo=vercel&logoColor=white) — Serverless data storage and real-time backend  
+- ![Clerk](https://img.shields.io/badge/Clerk-3B49DF?logo=clerk&logoColor=white) — User authentication and account management  
+- ![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?logo=typescript&logoColor=white) — Strongly typed language for better code reliability  
+- ![LemonSqueezy](https://img.shields.io/badge/LemonSqueezy-7C3AED?logo=lemonade&logoColor=white) — Payment gateway for managing Free & Pro plans  
 
 ---
 
