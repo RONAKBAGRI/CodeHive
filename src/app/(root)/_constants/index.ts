@@ -107,32 +107,13 @@ print("Max number:", max(numbers))`,
     monacoLanguage: "java",
     defaultCode: `public class Main {
     public static void main(String[] args) {
-        // Basic Java Example
-        int[] numbers = {2, 4, 6, 8, 10};
-        String name = "Diana";
-        
-        // Print array
-        System.out.print("Numbers: ");
-        for (int num : numbers) {
-            System.out.print(num + " ");
+        // Print squares of numbers from 1 to 5
+        for (int i = 1; i <= 5; i++) {
+            System.out.println("Square of " + i + " is " + (i * i));
         }
-        System.out.println();
-        
-        // Calculate sum
-        int sum = 0;
-        for (int num : numbers) {
-            sum += num;
-        }
-        System.out.println("Sum: " + sum);
-        
-        // Calculate average
-        double average = (double) sum / numbers.length;
-        System.out.println("Average: " + average);
-        
-        // Simple greeting
-        System.out.println("Hello, " + name + "!");
     }
-}`,
+}
+`,
   },
   go: {
     id: "go",
